@@ -1,0 +1,19 @@
+SnapSocial
+<div class="container" style="border: 1px solid black; background-color: aquamarine; width: 50%; height: 500px">
+    Log in to SnapSocial
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+        <mat-form-field>
+            <mat-label>Enter username/email</mat-label>
+            <input matInput placeholder="xyz@gmail.com" formControlName="username" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Enter password</mat-label>
+            <input matInput formControlName="password">
+        </mat-form-field>
+        <br>
+        <button mat-button type="submit">Login</button>
+        <br>
+        <a>Forgotten account?</a> <a routerLink="/register">Register for SnapSocial</a>
+    </form>
+</div>

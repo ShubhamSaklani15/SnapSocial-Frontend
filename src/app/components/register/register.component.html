@@ -1,0 +1,24 @@
+SnapSocial
+<div class="container" style="border: 1px solid black; background-color: aquamarine; width: 50%; height: 500px">
+    <p>Create a new account</p>
+    <p>It's quick and easy.</p>
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <mat-form-field>
+            <mat-label>Enter name</mat-label>
+            <input matInput formControlName="name" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Enter username/email</mat-label>
+            <input matInput formControlName="username" placeholder="xyz@gmail.com" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Enter password</mat-label>
+            <input matInput formControlName="password">
+        </mat-form-field>
+        <br>
+        <button mat-button type="submit">Register</button>
+        <br>
+        <a routerLink="/login">Already have an account?</a>
+    </form>
+</div>
