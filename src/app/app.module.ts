@@ -11,9 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material/input'; 
-import { MatSnackBarModule} from '@angular/material/snack-bar';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { NgxOtpInputModule } from 'ngx-otp-input';
 
 @NgModule({
   declarations: [
@@ -26,13 +27,15 @@ import { MatSnackBarModule} from '@angular/material/snack-bar';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    NgxOtpInputModule,
     RouterModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

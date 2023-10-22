@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/auth-service/authentication.service';
+import { NgxOtpInputConfig } from 'ngx-otp-input';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,21 @@ import { AuthenticationService } from 'src/app/services/auth-service/authenticat
 })
 export class RegisterComponent {
   registerForm!: FormGroup;
+  otpGenerated: boolean = false;
+  otpValue: string = "";
+  otpInputConfig: NgxOtpInputConfig = {
+    otpLength: 6,
+    autofocus: true,
+    classList: {
+      inputBox: 'my-super-box-class',
+      input: 'my-super-class',
+      inputFilled: 'my-super-filled-class',
+      inputDisabled: 'my-super-disable-class',
+      inputSuccess: 'my-super-success-class',
+      inputError: 'my-super-error-class',
+    },
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
@@ -30,16 +46,33 @@ export class RegisterComponent {
     });
   }
 
-  registerUser() {
+  generateOtp() {
     if (this.registerForm.invalid) return;
-    this.authService.registerUser(this.registerForm.value).subscribe({
+    this.authService.generateOtp(this.registerForm.value).subscribe({
       next: (response) => console.log(response),
       error: (error) => this.loadSnackBar(error.error.message),
       complete: () => {
-        this.loadSnackBar("Account Created...");
+        this.registerForm.disable();
+        this.loadSnackBar("Enter One Time Password.");
+        this.otpGenerated = true;
+      }
+    });
+  }
+
+  registerUser() {
+    if (this.registerForm.invalid) return;
+    this.authService.registerUser(this.registerForm.value, this.otpValue).subscribe({
+      next: (response) => console.log(response),
+      error: (error) => this.loadSnackBar(error.error.message),
+      complete: () => {
+        this.loadSnackBar("Account Created Successfully...");
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  handleFillEvent(value: string): void {
+    this.otpValue = value;
   }
 
   loadSnackBar(message: string) {

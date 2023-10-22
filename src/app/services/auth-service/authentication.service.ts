@@ -10,11 +10,19 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
+  //login user
   loginUser(user: UserData): Observable<any> {
     return this.http.post<any>("http://localhost:3000/login", user);
   }
 
-  registerUser(user: UserData): Observable<any> {
-    return this.http.post<any>("http://localhost:3000/register", user);
+  //generate otp for new account
+  generateOtp(user: UserData): Observable<any> {
+    console.log("hello")
+    return this.http.post<any>("http://localhost:3000/generate-otp", user);
+  }
+
+  //validate otp and register user
+  registerUser(user: UserData, otp: string): Observable<any> {
+    return this.http.post<any>("http://localhost:3000/validate-otp/"+otp, user);
   }
 }
