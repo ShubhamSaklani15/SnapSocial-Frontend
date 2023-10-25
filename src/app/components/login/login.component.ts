@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/auth-service/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +33,11 @@ export class LoginComponent implements OnInit {
   loginUser() {
     if (this.loginForm.invalid) return;
     this.authService.loginUser(this.loginForm.value).subscribe({
-      next: (response) => console.log(response),
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('name', response.name);
+        localStorage.setItem('username', response.username);
+      },
       error: (error) => this.loadSnackBar(error.error.message),
       complete: () => {
         this.loadSnackBar("Login Successful...");

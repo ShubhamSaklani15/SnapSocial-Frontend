@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/auth-service/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NgxOtpInputConfig } from 'ngx-otp-input';
 
 @Component({
@@ -73,6 +73,10 @@ export class RegisterComponent {
 
   handleFillEvent(value: string): void {
     this.otpValue = value;
+  }
+
+  handleOtpInputChange(event: any): void {
+    this.otpValue = event.target.value;
   }
 
   loadSnackBar(message: string) {

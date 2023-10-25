@@ -15,13 +15,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxOtpInputModule } from 'ngx-otp-input';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileDetailsComponent } from './components/profile/profile-details/profile-details.component';
+import { UserDetailsComponent } from './components/profile/user-details/user-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent,
+    ProfileDetailsComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,8 @@ import { NgxOtpInputModule } from 'ngx-otp-input';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
