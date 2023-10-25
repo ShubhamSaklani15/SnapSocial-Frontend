@@ -1,0 +1,66 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    width: 35%;
+    text-align: center;
+
+    .heading {
+        color: rgb(145, 240, 2);
+        font-weight: bolder;
+    }
+
+    .login-button {
+        width: 100%;
+        background-color: rgb(145, 240, 2);
+        color: white;
+        margin-bottom: 10px;
+    }
+
+    .new-account-button {
+        width: 80%;
+        border: 1px solid gray;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+/* horizontal lines for or */
+.hr-lines {
+    position: relative;
+    color: grey;
+    margin-top: 7px;
+}
+
+.hr-lines:before {
+    content: " ";
+    height: 1px;
+    width: 45%;
+    background: gray;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.hr-lines:after {
+    content: " ";
+    height: 1px;
+    width: 45%;
+    background: gray;
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+}

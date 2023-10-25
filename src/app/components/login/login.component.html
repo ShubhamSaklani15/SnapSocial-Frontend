@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="form-container">
+        <h2 class="heading">SnapSocial</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+            <mat-form-field appearance="outline">
+                <mat-label>Enter username/email</mat-label>
+                <input matInput placeholder="xyz@gmail.com" formControlName="username" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter password</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field>
+            <br>
+            <button mat-button class="login-button" type="submit">Log In</button>
+            <br>
+            <a href="#">Forgotten password?</a>
+            <br>
+            <h3 class="hr-lines"> or </h3>
+            <button mat-button class="new-account-button" routerLink="/register">Create new account</button>
+        </form>
+    </div>
+</div>

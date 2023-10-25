@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="form-container">
+        <h2 class="heading">SnapSocial</h2>
+        <h3 class="title">Create a new account. It's quick and easy.</h3>
+        <form [formGroup]="registerForm" (ngSubmit)="otpGenerated ? registerUser() : generateOtp()">
+            <mat-form-field appearance="outline">
+                <mat-label>Enter full name</mat-label>
+                <input matInput formControlName="name" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter username/email</mat-label>
+                <input matInput formControlName="username" placeholder="xyz@gmail.com" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Enter password</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field>
+            <br>
+            <ngx-otp-input *ngIf="otpGenerated" [config]="otpInputConfig" (fill)="handleFillEvent($event)">
+            </ngx-otp-input>
+            <br>
+            <button *ngIf="!otpGenerated" mat-button type="submit" class="register-button">Register</button>
+            <button *ngIf="otpGenerated" mat-button type="submit" class="register-button">Submit</button>
+            <br>
+            <h3 class="hr-lines"> or </h3>
+            <button mat-button class="existing-account-button" routerLink="/login">Already have an account?</button>
+        </form>
+    </div>
+</div>
