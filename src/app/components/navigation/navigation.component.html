@@ -3,8 +3,7 @@
         <!-- Logo icon -->
         <a routerLink="/home"><img src="./assets/logo.png" class="logo" height="40px"></a>
         <!-- search bar -->
-        <input *ngIf="isUserLogin()" matInput class="search-input" placeholder="Search..."
-            style="padding-left: 30px; border: 2px solid grey; border-radius: 10px;margin-left: 60px; width: 60%; font-size: 15px; color: grey;">
+        <input *ngIf="isUserLogin()" matInput class="search-input" placeholder="Search...">
 
         <!-- network, message and notification options -->
         <a *ngIf="isUserLogin()" routerLinkActive="class" routerLink="/newnote" class="navigation-option network"
@@ -18,7 +17,7 @@
 
         <!-- profile option -->
         <div *ngIf="isUserLogin()" class="dropdown">
-            <img [src]="imageUrl ? imageUrl : 'assets/empty_profile.jpg'" height="20" style="border-radius: 50%;" />
+            <img [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" height="20" style="border-radius: 50%;" />
             <div class="dropdown-content">
                 <a *ngIf="isUserLogin()" routerLink="/profile" routerLinkActive="class">Profile</a><br>
                 <a *ngIf="isUserLogin()" (click)="logOut()">Log out</a>

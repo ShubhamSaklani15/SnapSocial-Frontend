@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/services/data.service';
-import { ProfileService } from 'src/app/services/profile.service';
+import { ProfileService } from 'src/app/services/profile-service';
 
 @Component({
   selector: 'app-user-details',
@@ -20,7 +21,7 @@ export class UserDetailsComponent {
   ) { }
 
   ngOnInit() {
-    this.dataService.profileImage.subscribe((imageUrl: string) => {
+    this.dataService.profileImage.subscribe((imageUrl : string) => {
       this.imageUrl = imageUrl;
     });
   }
@@ -34,17 +35,18 @@ export class UserDetailsComponent {
       formData.append('username', this.username ?? "");
 
       this.profileService.updateProfileImage(formData).subscribe({
-        next: (response) => this.dataService.updateProfileImage(this.imageUrl),
+        next: (response) => console.log('Image uploaded successfully', response),
         error: (error) => {
-          console.log("Error inside updateProfileImage: ",error);
-          this.imageUrl = ""
-          this.dataService.updateProfileImage(this.imageUrl)
+          this.imageUrl = "";
+          this.dataService.updateProfileImage(this.imageUrl);
         },
-        complete: () => this.loadSnackBar("Image updated successfully")
+        complete: () => {
+          this.dataService.updateProfileImage(this.imageUrl);
+          this.loadSnackBar("Image uploaded successfully");
+        }
       });
     } else {
-      this.imageUrl = "";
-      this.dataService.updateProfileImage(this.imageUrl);
+      this.imageUrl = null;
     }
   }
 

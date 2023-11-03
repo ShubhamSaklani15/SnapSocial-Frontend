@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { isEmpty } from 'lodash';
-import { ProfileService } from 'src/app/services/profile.service';
 import { DataService } from 'src/app/services/data.service';
+import { ProfileService } from 'src/app/services/profile-service';
 
 @Component({
   selector: 'app-navigation',
