@@ -17,7 +17,6 @@ export class AuthenticationService {
 
   //generate otp for new account
   generateOtp(user: UserData): Observable<any> {
-    console.log("hello")
     return this.http.post<any>("http://localhost:3000/generate-otp", user);
   }
 

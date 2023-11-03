@@ -1,0 +1,8 @@
+<div class="container">
+    <label for="fileInput" class="image-label">
+        <img [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" alt="Selected Image">
+    </label>
+    <input type="file" id="fileInput" (change)="updateProfileImage($event)" accept="image/*" style="display: none;">
+    <h1>{{name}}</h1>
+    <h2>{{username}}</h2>
+</div>

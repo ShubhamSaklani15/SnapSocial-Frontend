@@ -1,3 +1,4 @@
+<app-navigation></app-navigation>
 <div class="container">
     <div class="form-container">
         <h2 class="heading">SnapSocial</h2>
@@ -22,7 +23,8 @@
             </ngx-otp-input>
             <br>
             <button *ngIf="!otpGenerated" mat-button type="submit" class="register-button">Register</button>
-            <button *ngIf="otpGenerated" mat-button type="submit" class="register-button">Submit</button>
+            <button *ngIf="otpGenerated" mat-button type="submit" class="register-button"
+                [disabled]="otpValue.length != 6">Submit</button>
             <br>
             <h3 class="hr-lines"> or </h3>
             <button mat-button class="existing-account-button" routerLink="/login">Already have an account?</button>

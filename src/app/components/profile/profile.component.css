@@ -1,0 +1,20 @@
+.profile-container {
+    display: flex;
+    padding: 3%;
+
+    .user-details-container {
+        display: flex;
+        width: 20%;
+        margin: 5px;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-details-container {
+        width: 80%;
+        background-color: white;
+        margin: 5px;
+        border-radius: 10px;
+    }
+}
