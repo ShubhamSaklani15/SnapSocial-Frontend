@@ -1,10 +1,15 @@
 export interface Post {
     _id?: string;
     message?: string;
-    author?: string;
+    author?: Author;
     timestamp?: string;
     likes?: Like;
     comments?: Comment[];
+}
+
+export interface Author {
+    name?: string;
+    username?: string;
 }
 
 export interface Like {

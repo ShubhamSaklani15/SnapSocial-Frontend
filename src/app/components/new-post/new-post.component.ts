@@ -64,7 +64,10 @@ export class NewPostComponent {
 
         const post: Post = {
           message: this.htmlElement,
-          author: this.username,
+          author: {
+            name: this.name,
+            username: this.username
+          },
           timestamp: new Date().toISOString(),
         }
         this.addNewPost(post);

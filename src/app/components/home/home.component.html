@@ -1,17 +1,26 @@
 <app-navigation></app-navigation>
 
-<div class="container">
-    <div class="home-container">
-        <app-new-post class="left"></app-new-post>
-        <app-new-post class="new-post"></app-new-post>
-        <app-new-post class="right"></app-new-post>
+<div class="home-container">
+    <app-new-post class="left"></app-new-post>
+    <app-new-post class="new-post"></app-new-post>
+    <app-new-post class="right"></app-new-post>
+    <div class="fourth">
+        <div class="show-posts" *ngFor="let item of myPosts">
+            <div class="header">
+                <a href="#"><img class="profile-image" [src]="'assets/empty_profile.png'" /></a>
+                <div class="username">
+                    <h4>{{item.author?.name}}</h4>
+                    <a href="#">
+                        <h5>{{item.author?.username}}</h5>
+                    </a>
+                </div>
+            </div>
+            <div [innerHTML]="item.message">{{ item.message }}</div>
+        </div>
+        <div class="load-more-button-container">
+            <button class="load-more-button" *ngIf="loadMore" [disabled]="isLoading" mat-raised-button
+                (click)="loadMorePosts()" color="primary"><i class="fa"
+                    [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
+        </div>
     </div>
-
-    <div class="show-posts" *ngFor="let item of myPosts">
-        <a href="#">
-            <div [innerHTML]="item.author">{{ item.author }}</div>
-        </a>
-        <div [innerHTML]="item.message">{{ item.message }}</div>
-    </div>
-    <button *ngIf="loadMore" mat-raised-button (click)="loadMorePosts()">Load More...</button>
 </div>
