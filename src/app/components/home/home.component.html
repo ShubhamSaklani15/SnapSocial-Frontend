@@ -6,9 +6,12 @@
         <app-new-post class="new-post"></app-new-post>
         <app-new-post class="right"></app-new-post>
     </div>
-    
+
     <div class="show-posts" *ngFor="let item of myPosts">
-        <a href="#"><div [innerHTML]="item.author">{{ item.author }}</div></a>
+        <a href="#">
+            <div [innerHTML]="item.author">{{ item.author }}</div>
+        </a>
         <div [innerHTML]="item.message">{{ item.message }}</div>
     </div>
+    <button *ngIf="loadMore" mat-raised-button (click)="loadMorePosts()">Load More...</button>
 </div>

@@ -16,7 +16,7 @@ export class PostService {
     }
 
     //get all posts of a user
-    getPosts(username: string): Observable<any> {
-        return this.http.get<any>("http://localhost:3000/get-posts/"+username,);
+    getPosts(username: string, pageNumber: number): Observable<any> {
+        return this.http.get<any>(`http://localhost:3000/get-posts/${username}/${pageNumber}`);
     }
 }
