@@ -1,0 +1,22 @@
+.home-container {
+    display: flex;
+    margin-top: 2%;
+
+    .left,
+    .right {
+        width: 20%;
+    }
+
+    .new-post {
+        width: 60%;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+}
+
+.profile-image {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 50%;
+}

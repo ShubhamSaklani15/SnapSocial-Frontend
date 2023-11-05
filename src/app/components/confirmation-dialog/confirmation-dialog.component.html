@@ -1,0 +1,9 @@
+<div class="confirmation-container">
+    <h1>{{heading}}</h1>
+    <hr>
+    <h3>{{confirmationMessage}}</h3>
+    <div class="button-container">
+        <button (click)="closeConfirmationDialog('no')" mat-stroked-button color="primary">{{option1}}</button>
+        <button (click)="closeConfirmationDialog('yes')" mat-raised-button color="primary">{{option2}}</button>
+    </div>
+</div>
