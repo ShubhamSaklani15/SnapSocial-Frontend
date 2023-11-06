@@ -1,0 +1,26 @@
+<div class="post-container">
+    <a (click)="gotoProfile()"><img class="profile-image"
+            [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
+    <button class="add-post-button" (click)="openNewPostDialog()">Start a post</button>
+    <ng-template class="new-post-template" #newPostDialog>
+        <div class="new-post-container">
+            <div class="header">
+                <a (click)="gotoProfile()"><img class="profile-image"
+                        [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
+                <div class="username">
+                    <h4>{{name}}</h4>
+                    <a href="#">
+                        <h5>{{username}}</h5>
+                    </a>
+                </div>
+                <mat-icon class="close-icon" (click)="closeNewPostDialog()" matTooltip="close">close</mat-icon>
+            </div>
+            <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlElement"
+                [config]="config"></angular-editor>
+            <div class="post-button-container">
+                <button class="post-button" mat-raised-button color="primary" (click)="openConfirmationDialog()"
+                    [disabled]="!htmlElement">Post</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -1,14 +1,22 @@
-.image-label {
-    display: inline-block;
-    cursor: pointer;
-}
+.container {
+    text-align: center;
 
-.image-label img {
-    margin-top: 5px;
-    max-width: 200px;
-    max-height: 200px;
-    min-width: 200px;
-    min-height: 200px;
-    border-radius: 50%;
-    /* Adjust the size as needed */
+    .image-label {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .image-label img {
+        margin-top: 5px;
+        max-width: 200px;
+        max-height: 200px;
+        min-width: 200px;
+        min-height: 200px;
+        border-radius: 50%;
+        /* Adjust the size as needed */
+    }
+
+    .file-input {
+        display: none;
+    }
 }

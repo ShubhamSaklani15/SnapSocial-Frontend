@@ -1,7 +1,7 @@
 <div class="navigation-container">
     <mat-toolbar class="toolbar">
         <!-- Logo icon -->
-        <a routerLink="/home"><img src="./assets/logo.png" class="logo" height="40px"></a>
+        <a routerLink="/home"><img src="./assets/logo.png" class="logo"></a>
         <!-- search bar -->
         <input *ngIf="isUserLogin()" matInput class="search-input" placeholder="Search...">
 
@@ -17,7 +17,7 @@
 
         <!-- profile option -->
         <div *ngIf="isUserLogin()" class="dropdown">
-            <img [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" height="20" style="border-radius: 50%;" />
+            <img class="profile-image" [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'"/>
             <div class="dropdown-content">
                 <a *ngIf="isUserLogin()" routerLink="/profile" routerLinkActive="class">Profile</a><br>
                 <a *ngIf="isUserLogin()" (click)="logOut()">Log out</a>
