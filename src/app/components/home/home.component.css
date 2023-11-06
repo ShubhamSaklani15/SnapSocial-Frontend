@@ -1,6 +1,6 @@
 .home-container {
     display: grid;
-    grid-template-columns: 300px 1fr 300px;
+    grid-template-columns: 1fr 2fr 1fr;
     margin: 1%;
     grid-column-gap: 1%;
     grid-row-gap: 1%;
@@ -24,9 +24,14 @@
 }
 
 h4,
-h5 {
+h5,
+h6 {
     margin: 0;
     padding: 0;
+}
+
+h6{
+    color: grey;
 }
 
 a {
@@ -37,8 +42,8 @@ a {
     margin-top: 2px;
     margin-right: 8px;
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
 }
 
 .profile-image:hover {
@@ -47,7 +52,7 @@ a {
 
 .load-more-button-container {
     text-align: center;
-
+    margin-top: 2px;
     .load-more-button {
         border-radius: 25px;
     }

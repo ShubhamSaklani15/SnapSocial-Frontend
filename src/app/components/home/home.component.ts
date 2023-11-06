@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { isEmpty } from 'lodash';
+import { isEmpty, times } from 'lodash';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post-service';
+import { getTimeAgo } from 'src/app/utility/utility';
 
 @Component({
   selector: 'app-home',
@@ -53,7 +54,11 @@ export class HomeComponent {
     }, 500)
   }
 
-  loadSnackBar(message: string) {
+  loadSnackBar(message: string): void {
     this.snack.open(message, "Ok", { duration: 3000, });
+  }
+
+  getTimeAgo(timestamp: string): string {
+    return getTimeAgo(timestamp);
   }
 }

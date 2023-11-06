@@ -1,18 +1,21 @@
 <app-navigation></app-navigation>
 
 <div class="home-container">
-    <app-new-post class="left"></app-new-post>
+    <!-- <app-new-post class="left"></app-new-post> -->
+    <div></div>
     <app-new-post class="new-post"></app-new-post>
-    <app-new-post class="right"></app-new-post>
+    <!-- <app-new-post class="right"></app-new-post> -->
+    <div></div>
     <div class="fourth">
         <div class="show-posts" *ngFor="let item of myPosts">
             <div class="header">
                 <a href="#"><img class="profile-image" [src]="'assets/empty_profile.png'" /></a>
                 <div class="username">
-                    <h4>{{item.author?.name}}</h4>
+                    <h5>{{item.author?.name}}</h5>
                     <a href="#">
                         <h5>{{item.author?.username}}</h5>
                     </a>
+                    <h6>{{getTimeAgo(item.timestamp ?? '')}} .</h6>
                 </div>
             </div>
             <div [innerHTML]="item.message">{{ item.message }}</div>
