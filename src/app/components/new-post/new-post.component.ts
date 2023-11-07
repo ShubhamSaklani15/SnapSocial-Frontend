@@ -21,12 +21,32 @@ export class NewPostComponent {
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    minHeight: '20rem',
-    maxHeight: '20rem',
+    minHeight: '22rem',
+    maxHeight: '22rem',
     placeholder: 'Enter text here...',
     translate: 'no',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      [
+        'undo',
+        'redo',
+        'justifyFull',
+        'indent',
+        'outdent',
+        'fontName',
+        'heading'
+      ],
+      [
+        'backgroundColor',
+        'fontSize',
+        'customClasses',
+        'insertImage',
+        'insertVideo',
+        'insertHorizontalRule',
+        'toggleEditorMode'
+      ]
+    ],
   }
   @ViewChild('newPostDialog', { static: true }) newPostDialog!: TemplateRef<any>;
 
@@ -41,7 +61,7 @@ export class NewPostComponent {
   ngOnInit() {
     this.name = localStorage.getItem('name') ?? "";
     this.username = localStorage.getItem('username') ?? "";
-    this.dataService.profileImage.subscribe((imageUrl: string) => {
+    this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
       this.imageUrl = imageUrl;
     });
   }
@@ -70,7 +90,7 @@ export class NewPostComponent {
           },
           timestamp: new Date().toISOString(),
         }
-        this.addNewPost(post);
+                this.addNewPost(post);
       }
     });
   }
@@ -82,6 +102,7 @@ export class NewPostComponent {
       complete: () => {
         this.loadSnackBar("Post Added...");
         this.closeNewPostDialog();
+        this.dataService.notifyNewPost();
         this.htmlElement = "";
         //close loader
       }

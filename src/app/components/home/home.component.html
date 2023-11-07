@@ -22,7 +22,7 @@
         </div>
         <div class="load-more-button-container">
             <button class="load-more-button" *ngIf="loadMore" [disabled]="isLoading" mat-raised-button
-                (click)="loadMorePosts()" color="primary"><i class="fa"
+                (click)="loadMorePosts(false)" color="primary"><i class="fa"
                     [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
         </div>
     </div>

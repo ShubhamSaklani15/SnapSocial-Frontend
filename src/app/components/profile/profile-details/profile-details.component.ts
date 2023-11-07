@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { isEmpty } from 'lodash';
+import { Post } from 'src/app/models/post';
+import { DataService } from 'src/app/services/data.service';
+import { PostService } from 'src/app/services/post-service';
+import { getTimeAgo } from 'src/app/utility/utility';
 
 @Component({
   selector: 'app-profile-details',
@@ -6,38 +12,58 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile-details.component.css']
 })
 export class ProfileDetailsComponent {
-  selectedFile!: File;
+  isLoading: boolean = false;
+  button!: string;
+  username!: string;
+  pageNumber: number = 1;
+  loadMore: boolean = true;
+  myPosts: Post[] = [];
+  imageUrl!: string;
+  constructor(
+    private postService: PostService,
+    private snack: MatSnackBar,
+    private dataService: DataService
+  ) { }
 
-  constructor() { }
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  ngOnInit() {
+    this.username = localStorage.getItem('username') ?? '';
+    this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
+      this.imageUrl = imageUrl;
+    });
+    this.loadMorePosts();
   }
 
-  onUpload() {
-    const formData = new FormData();
-    formData.append('image', this.selectedFile);
+  loadMorePosts() {
+    this.isLoading = true;
+    this.button = 'Loading';
+    setTimeout(() => {
+      this.postService.getPosts(this.username, this.pageNumber).subscribe({
+        next: (response) => {
+          if (isEmpty(response.posts)) {
+            this.loadMore = false;
+          }
+          this.myPosts.push(...response.posts);
+          this.pageNumber++;
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.button = 'Load More';
+          this.loadSnackBar("Internal Server Error");
+        },
+        complete: () => {
+          this.isLoading = false;
+          this.button = 'Load More';
+        }
+      });
+    }, 500)
+  }
 
-    //     this.authService.loginUser(this.loginForm.value).subscribe({
-    //       next: (response) => {
-    //         localStorage.setItem('token', response.token);
-    //         localStorage.setItem('username', response.username);
-    //       },
-    //       error: (error) => this.loadSnackBar(error.error.message),
-    //       complete: () => {
-    //         this.loadSnackBar("Login Successful...");
-    //         this.router.navigate(['/home']);
-    //       }
-    //     });
+  loadSnackBar(message: string): void {
+    this.snack.open(message, "Ok", { duration: 3000, });
+  }
 
-    //     this.http.post('http://your-backend-server/upload', formData).subscribe(
-    //       (response) => {
-    //         // Handle the response from the server
-    //       },
-    //       (error) => {
-    //         // Handle errors
-    //       }
-    //     );
-    //   }
+  getTimeAgo(timestamp: string): string {
+    return getTimeAgo(timestamp);
   }
 
 }

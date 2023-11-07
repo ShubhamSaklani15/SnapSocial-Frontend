@@ -4,6 +4,26 @@
             <ng-template matTabLabel>
                 <span matBadgeOverlap="false">My Posts</span>
             </ng-template>
+            <div class="my-posts-container" style="overflow: hidden; padding-top: 10px;">
+                <div class="show-posts" *ngFor="let item of myPosts">
+                    <div class="header">
+                        <a href="#"><img class="profile-image" [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'"/></a>
+                        <div class="username">
+                            <h5>{{item.author?.name}}</h5>
+                            <a href="#">
+                                <h5>{{item.author?.username}}</h5>
+                            </a>
+                            <h6>{{getTimeAgo(item.timestamp ?? '')}} .</h6>
+                        </div>
+                    </div>
+                    <div [innerHTML]="item.message">{{ item.message }}</div>
+                </div>
+                <div class="load-more-button-container">
+                    <button class="load-more-button" *ngIf="loadMore" [disabled]="isLoading" mat-raised-button
+                        (click)="loadMorePosts()" color="primary"><i class="fa"
+                            [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
+                </div>
+            </div>
         </mat-tab>
         <mat-tab>
             <ng-template matTabLabel>

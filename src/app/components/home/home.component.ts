@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isEmpty, times } from 'lodash';
 import { Post } from 'src/app/models/post';
+import { DataService } from 'src/app/services/data.service';
 import { PostService } from 'src/app/services/post-service';
 import { getTimeAgo } from 'src/app/utility/utility';
 
@@ -20,31 +21,38 @@ export class HomeComponent {
   button: string = "Load More"
   constructor(
     private postService: PostService,
+    private dataService: DataService,
     private snack: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.username = localStorage.getItem('username') ?? "";
-    this.loadMorePosts();
+    this.dataService.getNewPostObservable().subscribe(() => {
+      this.pageNumber = 1;
+      this.loadMorePosts(true);
+    });
   }
 
-  loadMorePosts() {
+  loadMorePosts(newPostAdded: boolean) {
     this.isLoading = true;
     this.button = 'Loading';
     setTimeout(() => {
-      this.postService.getPosts(this.username, this.pageNumber).subscribe({
+      this.postService.getAllPosts(this.pageNumber).subscribe({
         next: (response) => {
           if (isEmpty(response.posts)) {
             this.loadMore = false;
           }
-          this.myPosts.push(...response.posts);
+          if (newPostAdded) {
+            this.myPosts = response.posts;
+          } else {
+            this.myPosts.push(...response.posts);
+          }
           this.pageNumber++;
         },
         error: (error) => {
           this.isLoading = false;
           this.button = 'Load More';
           this.loadSnackBar("Internal Server Error");
-          console.log("Error in getProfileImage: ", error)
         },
         complete: () => {
           this.isLoading = false;
