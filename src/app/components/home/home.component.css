@@ -1,6 +1,6 @@
 .home-container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 550px 1fr;
     margin: 1%;
     grid-column-gap: 1%;
     grid-row-gap: 10px;
@@ -50,6 +50,10 @@ a {
     cursor: pointer;
 }
 
+.posts-body {
+    overflow-wrap: break-word;
+}
+
 .load-more-button-container {
     text-align: center;
     margin-top: 2px;
@@ -65,4 +69,20 @@ a {
     border-radius: 15px;
     margin-bottom: 10px;
     padding: 10px;
+}
+
+.posts-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+button.posts-button {
+    color: grey;
+
+    .posts-icon {
+        color: white;
+        text-shadow: -1px -1px 0 grey, 1px -1px 0 grey, -1px 1px 0 grey, 1px 1px 0 grey;
+    }
 }

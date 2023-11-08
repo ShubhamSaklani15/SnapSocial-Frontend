@@ -16,7 +16,7 @@ export class DataService {
     this.profileImage.next(profileImage);
   }
 
-  notifyNewPost() {
+  updatePosts() {
     this.newPostSubject.next();
   }
 

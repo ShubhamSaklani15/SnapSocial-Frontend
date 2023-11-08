@@ -42,3 +42,23 @@ a {
     margin-bottom: 10px;
     padding: 10px;
 }
+
+.posts-body {
+    overflow-wrap: break-word;
+}
+
+.posts-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+button.posts-button {
+    color: grey;
+
+    .posts-icon {
+        color: white;
+        text-shadow: -1px -1px 0 grey, 1px -1px 0 grey, -1px 1px 0 grey, 1px 1px 0 grey;
+    }
+}

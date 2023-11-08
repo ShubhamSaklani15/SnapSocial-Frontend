@@ -7,6 +7,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { PostService } from 'src/app/services/post-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Post } from 'src/app/models/post';
+import { Utility } from 'src/app/utility/utility';
 
 @Component({
   selector: 'app-new-post',
@@ -18,6 +19,7 @@ export class NewPostComponent {
   htmlElement!: string;
   name!: string;
   username!: string;
+  utilityInstance!: Utility;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -61,6 +63,7 @@ export class NewPostComponent {
   ngOnInit() {
     this.name = localStorage.getItem('name') ?? "";
     this.username = localStorage.getItem('username') ?? "";
+    this.utilityInstance = new Utility();
     this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
       this.imageUrl = imageUrl;
     });
@@ -75,9 +78,12 @@ export class NewPostComponent {
   }
 
   openConfirmationDialog() {
-    const dialogConfig = this.configureConfirmationDialog();
+    const heading = "Add Post";
+    const confirmationMessage = "Are you sure you want to add this post ?";
+    const [option1, option2] = ["Discard", "Post"];
+    const dialogConfig = this.utilityInstance.configureConfirmationDialog(heading, confirmationMessage, option1, option2);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(action => {
+    dialogRef.afterClosed().subscribe((action: string) => {
       if (action === 'yes') {
         //add loader
         this.htmlElement = this.htmlElement.replace(/<img /g, '<img style="height: 100px; width: 100px;" ');
@@ -90,7 +96,7 @@ export class NewPostComponent {
           },
           timestamp: new Date().toISOString(),
         }
-                this.addNewPost(post);
+        this.addNewPost(post);
       }
     });
   }
@@ -102,23 +108,11 @@ export class NewPostComponent {
       complete: () => {
         this.loadSnackBar("Post Added...");
         this.closeNewPostDialog();
-        this.dataService.notifyNewPost();
+        this.dataService.updatePosts();
         this.htmlElement = "";
         //close loader
       }
     });
-  }
-  configureConfirmationDialog(): MatDialogConfig<any> {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.height = "auto";
-    dialogConfig.width = "auto";
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = false;
-    const heading = "Add Post";
-    const confirmationMessage = "Are you sure you want to add this post ?";
-    const [option1, option2] = ["Discard", "Post"];
-    dialogConfig.data = { heading: heading, confirmationMessage: confirmationMessage, option1: option1, option2: option2 };
-    return dialogConfig;
   }
 
   closeNewPostDialog() {

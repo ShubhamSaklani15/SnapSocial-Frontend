@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isEmpty, times } from 'lodash';
 import { Post } from 'src/app/models/post';
 import { DataService } from 'src/app/services/data.service';
 import { PostService } from 'src/app/services/post-service';
-import { getTimeAgo } from 'src/app/utility/utility';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { Utility } from 'src/app/utility/utility';
+
 
 @Component({
   selector: 'app-home',
@@ -18,15 +21,18 @@ export class HomeComponent {
   pageNumber: number = 1;
   loadMore: boolean = true;
   isLoading = false;
-  button: string = "Load More"
+  button: string = "Load More";
+  utilityInstance!: Utility;
   constructor(
     private postService: PostService,
     private dataService: DataService,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.username = localStorage.getItem('username') ?? "";
+    this.utilityInstance = new Utility();
     this.dataService.getNewPostObservable().subscribe(() => {
       this.pageNumber = 1;
       this.loadMorePosts(true);
@@ -67,6 +73,29 @@ export class HomeComponent {
   }
 
   getTimeAgo(timestamp: string): string {
-    return getTimeAgo(timestamp);
+    return this.utilityInstance.getTimeAgo(timestamp);
+  }
+
+  openConfirmationDialog(id: string) {
+    const heading = "Delete Post";
+    const confirmationMessage = "Are you sure you want to delete this post ?";
+    const [option1, option2] = ["No", "Yes"];
+    const dialogConfig = this.utilityInstance.configureConfirmationDialog(heading, confirmationMessage, option1, option2);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((action: string) => {
+      if (action === 'yes') {
+        this.deletePost(id);
+      }
+    });
+  }
+
+  deletePost(id: string) {
+    this.postService.deletePost(id).subscribe({
+      error: (error) => this.loadSnackBar("Internal Server Error"),
+      complete: () => {
+        this.dataService.updatePosts();
+        this.loadSnackBar("Post Deleted")
+      }
+    });
   }
 }

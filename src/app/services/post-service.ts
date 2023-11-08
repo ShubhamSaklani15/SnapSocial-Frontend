@@ -24,4 +24,9 @@ export class PostService {
     getPosts(username: string, pageNumber: number): Observable<any> {
         return this.http.get<any>(`http://localhost:3000/get-posts/${username}/${pageNumber}`);
     }
+
+    //get all posts of a user
+    deletePost(id: string): Observable<any> {
+        return this.http.delete<any>(`http://localhost:3000/delete-post/${id}`);
+    }
 }
