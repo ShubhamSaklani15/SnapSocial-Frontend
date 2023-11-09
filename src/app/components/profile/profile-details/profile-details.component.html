@@ -4,6 +4,40 @@
             <ng-template matTabLabel>
                 <span matBadgeOverlap="false">My Posts</span>
             </ng-template>
+            <div class="my-posts-container" style="overflow: hidden; padding-top: 10px;">
+                <div class="show-posts" *ngFor="let post of myPosts">
+                    <div class="header">
+                        <a href="#"><img class="profile-image"
+                                [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
+                        <div class="username">
+                            <h5>{{post.author?.name}}</h5>
+                            <a href="#">
+                                <h5>{{post.author?.username}}</h5>
+                            </a>
+                            <h6>{{getTimeAgo(post.timestamp ?? '')}} .</h6>
+                        </div>
+                    </div>
+                    <div class="posts-body">
+                        <div [innerHTML]="post.message">{{ post.message }}</div>
+                    </div>
+                    <hr>
+                    <div class="posts-actions">
+                        <button mat-flat-button class="posts-button"><i class="fa fa-thumbs-up posts-icon"></i>
+                            Like</button>
+                        <button mat-flat-button class="posts-button"><mat-icon class="posts-icon">
+                                insert_comment</mat-icon>
+                            Comment</button>
+                        <button mat-flat-button class="posts-button"><i class="fa fa-edit posts-icon"></i> Edit</button>
+                        <button mat-flat-button class="posts-button" (click)="openConfirmationDialog(post._id ?? '')"><i
+                                class="fa fa-trash posts-icon"></i> Delete</button>
+                    </div>
+                </div>
+                <div class="load-more-button-container">
+                    <button class="load-more-button" *ngIf="loadMore" [disabled]="isLoading" mat-raised-button
+                        (click)="loadMorePosts(false)" color="primary"><i class="fa"
+                            [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
+                </div>
+            </div>
         </mat-tab>
         <mat-tab>
             <ng-template matTabLabel>

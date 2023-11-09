@@ -8,10 +8,23 @@ export class DataService {
 
   constructor() { }
 
-  profileImage = new BehaviorSubject<string>("");
-  profileImage$ = this.profileImage.asObservable();
+  private profileImage = new BehaviorSubject<string>("");
+
+  private newPostSubject = new BehaviorSubject<void>(undefined);
 
   updateProfileImage(profileImage: string) {
     this.profileImage.next(profileImage);
+  }
+
+  updatePosts() {
+    this.newPostSubject.next();
+  }
+
+  getNewPostObservable() {
+    return this.newPostSubject.asObservable();
+  }
+
+  getProfileImageObservable() {
+    return this.profileImage.asObservable();
   }
 }

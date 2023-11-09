@@ -15,8 +15,18 @@ export class PostService {
         return this.http.post<any>("http://localhost:3000/add-new-post/", post);
     }
 
+    //get all posts
+    getAllPosts(pageNumber: number): Observable<any> {
+        return this.http.get<any>(`http://localhost:3000/get-all-posts/${pageNumber}`);
+    }
+
     //get all posts of a user
     getPosts(username: string, pageNumber: number): Observable<any> {
         return this.http.get<any>(`http://localhost:3000/get-posts/${username}/${pageNumber}`);
+    }
+
+    //get all posts of a user
+    deletePost(id: string): Observable<any> {
+        return this.http.delete<any>(`http://localhost:3000/delete-post/${id}`);
     }
 }
