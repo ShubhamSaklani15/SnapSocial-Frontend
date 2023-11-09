@@ -1,12 +1,12 @@
 <div class="post-container">
     <a (click)="gotoProfile()"><img class="profile-image"
-            [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
+            [src]="getImageUrl() ? getImageUrl() : 'assets/empty_profile.png'" /></a>
     <button class="add-post-button" (click)="openNewPostDialog()">Start a post</button>
     <ng-template class="new-post-template" #newPostDialog>
         <div class="new-post-container">
             <div class="header">
                 <a (click)="gotoProfile()"><img class="profile-image"
-                        [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
+                        [src]="getImageUrl() ? getImageUrl() : 'assets/empty_profile.png'" /></a>
                 <div class="username">
                     <h4>{{name}}</h4>
                     <a href="#">

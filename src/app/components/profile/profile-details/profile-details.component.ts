@@ -7,6 +7,7 @@ import { PostService } from 'src/app/services/post-service';
 import { Utility } from 'src/app/utility/utility';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ProfileService } from 'src/app/services/profile-service';
 
 @Component({
   selector: 'app-profile-details',
@@ -26,19 +27,21 @@ export class ProfileDetailsComponent {
     private postService: PostService,
     private snack: MatSnackBar,
     private dataService: DataService,
+    private profileService: ProfileService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.username = localStorage.getItem('username') ?? '';
     this.utilityInstance = new Utility();
-    this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
-      this.imageUrl = imageUrl;
-    });
     this.dataService.getNewPostObservable().subscribe(() => {
       this.pageNumber = 1;
       this.loadMorePosts(true);
     });
+  }
+
+  getImageUrl(): string {
+    return this.profileService.imageUrl;
   }
 
   loadMorePosts(newPostAdded: boolean) {

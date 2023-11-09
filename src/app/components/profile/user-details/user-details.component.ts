@@ -21,9 +21,10 @@ export class UserDetailsComponent {
   ) { }
 
   ngOnInit() {
-    this.dataService.getProfileImageObservable().subscribe((imageUrl : string) => {
-      this.imageUrl = imageUrl;
-    });
+  }
+
+  getImageUrl(): string {
+    return this.profileService.imageUrl;
   }
 
   updateProfileImage(event: any) {

@@ -8,7 +8,7 @@
                 <div class="show-posts" *ngFor="let post of myPosts">
                     <div class="header">
                         <a href="#"><img class="profile-image"
-                                [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
+                                [src]="getImageUrl() ? getImageUrl() : 'assets/empty_profile.png'" /></a>
                         <div class="username">
                             <h5>{{post.author?.name}}</h5>
                             <a href="#">

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileService {
-
+  imageUrl: string = '';
   constructor(private http: HttpClient) { }
 
   //update profile image of user
@@ -16,6 +16,6 @@ export class ProfileService {
 
   //get profile image of user
   getProfileImage(username: string | null): Observable<any> {
-    return this.http.get<any>("http://localhost:3000/get-profile-image/"+username, { responseType: 'blob' as 'json' });
+    return this.http.get<any>("http://localhost:3000/get-profile-image/" + username, { responseType: 'blob' as 'json' });
   }
 }

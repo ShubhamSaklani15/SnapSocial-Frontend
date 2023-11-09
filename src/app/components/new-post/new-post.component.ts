@@ -8,6 +8,7 @@ import { PostService } from 'src/app/services/post-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Post } from 'src/app/models/post';
 import { Utility } from 'src/app/utility/utility';
+import { ProfileService } from 'src/app/services/profile-service';
 
 @Component({
   selector: 'app-new-post',
@@ -55,6 +56,7 @@ export class NewPostComponent {
   constructor(
     private dataService: DataService,
     private postService: PostService,
+    private profileService: ProfileService,
     private dialog: MatDialog,
     private router: Router,
     private snack: MatSnackBar
@@ -64,9 +66,10 @@ export class NewPostComponent {
     this.name = localStorage.getItem('name') ?? "";
     this.username = localStorage.getItem('username') ?? "";
     this.utilityInstance = new Utility();
-    this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
-      this.imageUrl = imageUrl;
-    });
+  }
+
+  getImageUrl(): string {
+    return this.profileService.imageUrl;
   }
 
   openNewPostDialog() {

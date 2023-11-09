@@ -21,10 +21,10 @@ export class NavigationComponent {
   ) { }
 
   ngOnInit() {
-    this.dataService.getProfileImageObservable().subscribe((imageUrl : string) => {
-      this.imageUrl = imageUrl;
+    this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
+      this.profileService.imageUrl = this.imageUrl = imageUrl;
     });
-    if(isEmpty(this.imageUrl)) {
+    if (isEmpty(this.imageUrl)) {
       this.getProfileImage();
     }
   }
