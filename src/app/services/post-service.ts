@@ -25,6 +25,11 @@ export class PostService {
         return this.http.get<any>(`http://localhost:3000/get-posts/${username}/${pageNumber}`);
     }
 
+    //update post
+    updatePost(post: Post) {
+        return this.http.patch("http://localhost:3000/update-post/", post);
+    }
+
     //get all posts of a user
     deletePost(id: string): Observable<any> {
         return this.http.delete<any>(`http://localhost:3000/delete-post/${id}`);

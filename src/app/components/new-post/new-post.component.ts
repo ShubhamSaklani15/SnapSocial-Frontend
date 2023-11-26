@@ -94,6 +94,10 @@ export class NewPostComponent {
             name: this.name,
             username: this.username
           },
+          likes: {
+            count: 0,
+            users_liked: []
+          },
           timestamp: new Date().toISOString(),
         }
         this.addNewPost(post);

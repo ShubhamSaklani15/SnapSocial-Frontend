@@ -98,4 +98,35 @@ export class HomeComponent {
       }
     });
   }
+
+  toggleLike(post: Post) {
+    const index = post?.likes?.users_liked?.indexOf(this.username) ?? -1;
+    if (index === -1) {
+      post?.likes?.users_liked?.push(this.username);
+      if (post && post.likes) {
+        post.likes.count = (post.likes.count || 0) + 1;
+      }
+    } else {
+      post?.likes?.users_liked?.splice(index, 1);
+      if (post && post.likes) {
+        post.likes.count = (post.likes.count || 0) - 1;
+      }
+    }
+    this.updatePost(post);
+  }
+
+  updatePost(post: Post) {
+    this.postService.updatePost(post).subscribe({
+      error: (error) => {
+        this.loadSnackBar("Internal Server Error")
+        console.log("Error in updatePost: ", error)
+      },
+      complete: () => console.log("post updated: ")
+    });
+  }
+
+  isLikedPost(post: Post) {
+    const index = post?.likes?.users_liked?.indexOf(this.username) ?? -1;
+    return (index != -1);
+  }
 }

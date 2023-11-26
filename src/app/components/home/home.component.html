@@ -23,13 +23,18 @@
             </div>
             <hr>
             <div class="posts-actions">
-                <button mat-flat-button class="posts-button"><i class="fa fa-thumbs-up posts-icon"></i> Like</button>
+                <button mat-flat-button class="posts-button" (click)="toggleLike(post)"
+                    matTooltip="{{post.likes?.count || 0}}" matTooltipPosition="above"><i
+                        class="fa fa-thumbs-up posts-icon"
+                        [ngStyle]="{'color':isLikedPost(post) ? '#0000CD' : null }"></i>
+                    <span [ngStyle]="{'color':isLikedPost(post) ? '#0000CD' : null }">Like</span></button>
                 <button mat-flat-button class="posts-button"><mat-icon class="posts-icon"> insert_comment</mat-icon>
                     Comment</button>
                 <button *ngIf="post.author?.username === username" mat-flat-button class="posts-button"><i
                         class="fa fa-edit posts-icon"></i> Edit</button>
                 <button *ngIf="post.author?.username === username" mat-flat-button class="posts-button"
-                    (click)="openConfirmationDialog(post._id ?? '')"><i class="fa fa-trash posts-icon"></i> Delete</button>
+                    (click)="openConfirmationDialog(post._id ?? '')"><i class="fa fa-trash posts-icon"></i>
+                    Delete</button>
 
             </div>
             <!-- <div class="show-posts-comments">
