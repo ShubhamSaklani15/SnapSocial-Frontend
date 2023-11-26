@@ -7,7 +7,7 @@
     <!-- <app-new-post class="right"></app-new-post> -->
     <div></div>
     <div class="fourth">
-        <div class="show-posts" *ngFor="let post of myPosts">
+        <div class="show-posts" *ngFor="let post of allPosts; index as i">
             <div class="header">
                 <a href="#"><img class="profile-image" [src]="'assets/empty_profile.png'" /></a>
                 <div class="username">
@@ -23,7 +23,7 @@
             </div>
             <hr>
             <div class="posts-actions">
-                <button mat-flat-button class="posts-button" (click)="toggleLike(post)"
+                <button mat-flat-button class="posts-button" (click)="toggleLike(post, i)"
                     matTooltip="{{post.likes?.count || 0}}" matTooltipPosition="above"><i
                         class="fa fa-thumbs-up posts-icon"
                         [ngStyle]="{'color':isLikedPost(post) ? '#0000CD' : null }"></i>
