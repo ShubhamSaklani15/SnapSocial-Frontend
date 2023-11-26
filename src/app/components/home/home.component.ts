@@ -17,7 +17,7 @@ import { Utility } from 'src/app/utility/utility';
 export class HomeComponent {
 
   username!: string;
-  myPosts: Post[] = [];
+  allPosts: Post[] = [];
   pageNumber: number = 1;
   loadMore: boolean = true;
   isLoading = false;
@@ -49,9 +49,9 @@ export class HomeComponent {
             this.loadMore = false;
           }
           if (newPostAdded) {
-            this.myPosts = response.posts;
+            this.allPosts = response.posts;
           } else {
-            this.myPosts.push(...response.posts);
+            this.allPosts.push(...response.posts);
           }
           this.pageNumber++;
         },
@@ -99,29 +99,20 @@ export class HomeComponent {
     });
   }
 
-  toggleLike(post: Post) {
-    const index = post?.likes?.users_liked?.indexOf(this.username) ?? -1;
-    if (index === -1) {
-      post?.likes?.users_liked?.push(this.username);
-      if (post && post.likes) {
-        post.likes.count = (post.likes.count || 0) + 1;
-      }
-    } else {
-      post?.likes?.users_liked?.splice(index, 1);
-      if (post && post.likes) {
-        post.likes.count = (post.likes.count || 0) - 1;
-      }
-    }
-    this.updatePost(post);
+  toggleLike(post: Post, index: number) {
+    this.updatePost(post, index);
   }
 
-  updatePost(post: Post) {
-    this.postService.updatePost(post).subscribe({
+  updatePost(post: Post, index: number) {
+    this.postService.updatePost(post?._id, this.username).subscribe({
+      next: (response: any) => {
+        this.allPosts[index] = response.message;
+      },
       error: (error) => {
         this.loadSnackBar("Internal Server Error")
-        console.log("Error in updatePost: ", error)
+        console.log("Error in updatePost ", error)
       },
-      complete: () => console.log("post updated: ")
+      complete: () => console.log("post updated ")
     });
   }
 

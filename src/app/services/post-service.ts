@@ -26,8 +26,8 @@ export class PostService {
     }
 
     //update post
-    updatePost(post: Post) {
-        return this.http.patch("http://localhost:3000/update-post/", post);
+    updatePost(id: string | undefined, username: string) {
+        return this.http.get(`http://localhost:3000/update-post/${id}/${username}`);
     }
 
     //get all posts of a user
