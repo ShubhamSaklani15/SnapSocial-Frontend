@@ -7,6 +7,7 @@ import { PostService } from 'src/app/services/post-service';
 import { Utility } from 'src/app/utility/utility';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-details',
@@ -21,17 +22,18 @@ export class ProfileDetailsComponent {
   loadMore: boolean = true;
   myPosts: Post[] = [];
   imageUrl!: string;
-  utilityInstance!: Utility;
+  utility!: Utility;
   constructor(
     private postService: PostService,
     private snack: MatSnackBar,
     private dataService: DataService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.username = localStorage.getItem('username') ?? '';
-    this.utilityInstance = new Utility();
+    this.utility = new Utility();
     this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
       this.imageUrl = imageUrl;
     });
@@ -60,7 +62,13 @@ export class ProfileDetailsComponent {
         error: (error) => {
           this.isLoading = false;
           this.button = 'Load More';
-          this.loadSnackBar("Internal Server Error");
+          if (error?.statusText === 'Unauthorized') {
+            this.utility.resetLocalStorage();
+            this.router.navigate(['/login']);
+            this.loadSnackBar("Session Expired. Please login again.");
+          } else {
+            this.loadSnackBar("Internal Server Error");
+          }
         },
         complete: () => {
           this.isLoading = false;
@@ -75,14 +83,14 @@ export class ProfileDetailsComponent {
   }
 
   getTimeAgo(timestamp: string): string {
-    return this.utilityInstance.getTimeAgo(timestamp);
+    return this.utility.getTimeAgo(timestamp);
   }
 
   openConfirmationDialog(id: string) {
     const heading = "Delete Post";
     const confirmationMessage = "Are you sure you want to delete this post ?";
     const [option1, option2] = ["No", "Yes"];
-    const dialogConfig = this.utilityInstance.configureConfirmationDialog(heading, confirmationMessage, option1, option2);
+    const dialogConfig = this.utility.configureConfirmationDialog(heading, confirmationMessage, option1, option2);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((action: string) => {
       if (action === 'yes') {
@@ -93,7 +101,15 @@ export class ProfileDetailsComponent {
 
   deletePost(id: string) {
     this.postService.deletePost(id).subscribe({
-      error: (error) => this.loadSnackBar("Internal Server Error"),
+      error: (error) => {
+        if (error?.statusText === 'Unauthorized') {
+          this.utility.resetLocalStorage();
+          this.router.navigate(['/login']);
+          this.loadSnackBar("Session Expired. Please login again.");
+        } else {
+          this.loadSnackBar("Internal Server Error");
+        }
+      },
       complete: () => {
         this.dataService.updatePosts();
         this.loadSnackBar("Post Deleted")

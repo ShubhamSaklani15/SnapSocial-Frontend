@@ -14,7 +14,7 @@ import { NewPostComponent } from './components/new-post/new-post.component';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { AuthenticationInterceptor} from './interceptor/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,13 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     MatDialogModule,
     AngularEditorModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

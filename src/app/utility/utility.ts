@@ -34,7 +34,7 @@ export class Utility {
             return 'just now';
         }
     }
-    
+
     /*
     function: configureConfirmationDialog()
     description: To configure the confirmation popup
@@ -47,5 +47,15 @@ export class Utility {
         dialogConfig.autoFocus = false;
         dialogConfig.data = { heading: heading, confirmationMessage: confirmationMessage, option1: option1, option2: option2 };
         return dialogConfig;
+    }
+
+    /*
+    function: resetLocalStorage()
+    description: To reset data from local storage
+    */
+    resetLocalStorage(): void {
+        localStorage.removeItem('name');
+        localStorage.removeItem('username');
+        localStorage.removeItem('token');
     }
 }
