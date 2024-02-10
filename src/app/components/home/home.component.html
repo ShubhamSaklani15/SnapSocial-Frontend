@@ -29,6 +29,7 @@
                         [ngStyle]="{'color':isLikedPost(post) ? '#0000CD' : null }"></i>
                     <span [ngStyle]="{'color':isLikedPost(post) ? '#0000CD' : null }">Like</span></button>
                 <button mat-flat-button class="posts-button"><mat-icon class="posts-icon"> insert_comment</mat-icon>
+                    <!-- <button mat-flat-button class="posts-button" (click)="toggleComment(post._id)"><mat-icon class="posts-icon"> insert_comment</mat-icon> -->
                     Comment</button>
                 <button *ngIf="post.author?.username === username" mat-flat-button class="posts-button"><i
                         class="fa fa-edit posts-icon"></i> Edit</button>
@@ -37,8 +38,8 @@
                     Delete</button>
 
             </div>
-            <!-- <div class="show-posts-comments">
-                <input type="text" placeholder="Add a comment...">
+            <!-- <div *ngIf="comments.get(post._id) === true" class="show-posts-comments">
+                <input type="text" placeholder="Add a comment..." style="width: 100%; border-radius: 10px; border: 1px solid grey; height: 30px; margin-top: 5px; padding-left: 10px;">
                 <div *ngFor="let comment of post.comments">
                     Author: comment.author
                     <br>

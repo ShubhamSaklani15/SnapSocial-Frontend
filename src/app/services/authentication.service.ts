@@ -22,6 +22,16 @@ export class AuthenticationService {
 
   //validate otp and register user
   registerUser(user: UserData, otp: string): Observable<any> {
-    return this.http.post<any>("http://localhost:3000/validate-otp/"+otp, user);
+    return this.http.post<any>("http://localhost:3000/validate-otp/" + otp, user);
+  }
+
+  //set jwt token in local storage
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  //get jwt token from local storage
+  getToken() {
+    return localStorage.getItem('token');
   }
 }

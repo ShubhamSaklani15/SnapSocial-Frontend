@@ -19,7 +19,7 @@ export class NewPostComponent {
   htmlElement!: string;
   name!: string;
   username!: string;
-  utilityInstance!: Utility;
+  utility!: Utility;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -63,7 +63,7 @@ export class NewPostComponent {
   ngOnInit() {
     this.name = localStorage.getItem('name') ?? "";
     this.username = localStorage.getItem('username') ?? "";
-    this.utilityInstance = new Utility();
+    this.utility = new Utility();
     this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
       this.imageUrl = imageUrl;
     });
@@ -81,7 +81,7 @@ export class NewPostComponent {
     const heading = "Add Post";
     const confirmationMessage = "Are you sure you want to add this post ?";
     const [option1, option2] = ["Discard", "Post"];
-    const dialogConfig = this.utilityInstance.configureConfirmationDialog(heading, confirmationMessage, option1, option2);
+    const dialogConfig = this.utility.configureConfirmationDialog(heading, confirmationMessage, option1, option2);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((action: string) => {
       if (action === 'yes') {
@@ -98,6 +98,7 @@ export class NewPostComponent {
             count: 0,
             users_liked: []
           },
+          // comments: [],
           timestamp: new Date().toISOString(),
         }
         this.addNewPost(post);
@@ -108,7 +109,15 @@ export class NewPostComponent {
   addNewPost(post: Post) {
     this.postService.addNewPost(post).subscribe({
       next: (response) => console.log("Response from addNewPost: ", response),
-      error: (error) => this.loadSnackBar("Internal Server Error"),
+      error: (error) => {
+        if (error?.statusText === 'Unauthorized') {
+          this.utility.resetLocalStorage();
+          this.router.navigate(['/login']);
+          this.loadSnackBar("Session Expired. Please login again.");
+        } else {
+          this.loadSnackBar("Internal Server Error");
+        }
+      },
       complete: () => {
         this.loadSnackBar("Post Added...");
         this.closeNewPostDialog();

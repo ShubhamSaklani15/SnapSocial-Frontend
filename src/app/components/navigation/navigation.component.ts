@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { isEmpty } from 'lodash';
 import { DataService } from 'src/app/services/data.service';
 import { ProfileService } from 'src/app/services/profile-service';
+import { Utility } from 'src/app/utility/utility';
 
 @Component({
   selector: 'app-navigation',
@@ -13,20 +15,23 @@ export class NavigationComponent {
   imageUrl!: any;
   name: string | null = localStorage.getItem('name');
   username: string | null = localStorage.getItem('username');
-
+  utility!: Utility;
+  
   constructor(
     private profileService: ProfileService,
     private dataService: DataService,
     private router: Router,
+    private snack: MatSnackBar
   ) { }
 
   ngOnInit() {
-    this.dataService.getProfileImageObservable().subscribe((imageUrl : string) => {
+    this.dataService.getProfileImageObservable().subscribe((imageUrl: string) => {
       this.imageUrl = imageUrl;
     });
-    if(isEmpty(this.imageUrl)) {
+    if (isEmpty(this.imageUrl) && !isEmpty(this.username)) {
       this.getProfileImage();
     }
+    this.utility = new Utility();
   }
 
   getProfileImage() {
@@ -43,6 +48,13 @@ export class NavigationComponent {
         console.log("Error in getProfileImage: ", error);
         this.imageUrl = "";
         this.dataService.updateProfileImage(this.imageUrl);
+        if (error?.statusText === 'Unauthorized') {
+          this.utility.resetLocalStorage();
+          this.router.navigate(['/login']);
+          this.loadSnackBar("Session Expired. Please login again.");
+        } else {
+          this.loadSnackBar("Internal Server Error");
+        }
       }
     });
   }
@@ -59,5 +71,9 @@ export class NavigationComponent {
 
   isUserLogin() {
     return !isEmpty(this.username);
+  }
+
+  loadSnackBar(message: string): void {
+    this.snack.open(message, "Ok", { duration: 3000, });
   }
 }
