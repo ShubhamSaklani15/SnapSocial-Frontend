@@ -9,7 +9,7 @@
         <div class="users" *ngFor="let user of newUsers">
             <a>
                 <img class="profile-image" style="border: 1px solid black;"
-                    [src]="user?.newField ? user?.newField : 'assets/empty_profile.png'" />
+                    [src]="user?.profile ? user?.profile : 'assets/empty_profile.png'" />
             </a>
             <div class="username">
                 <h4>{{user.name}}</h4>
