@@ -8,6 +8,7 @@ import { PostService } from 'src/app/services/post-service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { Utility } from 'src/app/utility/utility';
 import { Router } from '@angular/router';
+import { ProfileService } from 'src/app/services/profile-service';
 
 
 @Component({
@@ -24,9 +25,12 @@ export class HomeComponent {
   isLoading = false;
   button: string = "Load More";
   utility!: Utility;
+  profileImageMap = new Map<string, string>();
+  userNames: string[] = [];
   // comments = new Map<string | undefined, boolean>();
   constructor(
     private postService: PostService,
+    private profileService: ProfileService,
     private dataService: DataService,
     private snack: MatSnackBar,
     private dialog: MatDialog,
@@ -56,6 +60,7 @@ export class HomeComponent {
           } else {
             this.allPosts.push(...response.posts);
           }
+          this.userNames = response.posts.map((post: Post) => post.author?.username);
           this.pageNumber++;
         },
         error: (error) => {
@@ -71,6 +76,11 @@ export class HomeComponent {
         },
         complete: () => {
           this.isLoading = false;
+          this.userNames.forEach((username: string) => {
+            if(!(username in this.profileImageMap)) {
+              this.getProfileImage(username);
+            }
+          });
           this.button = 'Load More';
         }
       });
@@ -83,6 +93,23 @@ export class HomeComponent {
 
   getTimeAgo(timestamp: string): string {
     return this.utility.getTimeAgo(timestamp);
+  }
+
+  //Fetch the profile image of the user and store it in map
+  getProfileImage(username: string) {
+    this.profileService.getProfileImage(username).subscribe({
+      next: (response) => {
+        console.log("response in getProfile: ", response)
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.profileImageMap.set(username, reader.result as string);
+        };
+        reader.readAsDataURL(response);
+      },
+      error: (error) => {
+        console.log("Error fetching profile image for : ", username);
+      }
+    });
   }
 
   openConfirmationDialog(id: string) {

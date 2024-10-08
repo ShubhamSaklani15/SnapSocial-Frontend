@@ -2,7 +2,7 @@
 
 <div class="home-container">
     <div class="left"><app-new-post></app-new-post></div>
-   
+
     <div class="add-new-post"><app-new-post></app-new-post></div>
     <div class="new-users">
         <app-new-users></app-new-users>
@@ -10,11 +10,12 @@
     <div class="all-posts">
         <div class="show-posts" *ngFor="let post of allPosts; index as i">
             <div class="header">
-                <a href="#"><img class="profile-image" [src]="'assets/empty_profile.png'" /></a>
+                <a href="#"><img class="profile-image" [src]="this.profileImageMap.get(post.author.username)"
+                        alt="'assets/empty_profile.png'" /></a>
                 <div class="username">
-                    <h5>{{post.author?.name}}</h5>
+                    <h5>{{post.author.name}}</h5>
                     <a href="#">
-                        <h5>{{post.author?.username}}</h5>
+                        <h5>{{post.author.username}}</h5>
                     </a>
                     <h6>{{getTimeAgo(post.timestamp ?? '')}} .</h6>
                 </div>
