@@ -1,0 +1,67 @@
+<app-navigation></app-navigation>
+
+<div class="home-container">
+    <div class="left"><app-new-post></app-new-post></div>
+   
+    <div class="add-new-post"><app-new-post></app-new-post></div>
+    <div class="new-users">
+        <app-new-users></app-new-users>
+    </div>
+    <div class="all-posts">
+        <div class="show-posts" *ngFor="let post of allPosts; index as i">
+            <div class="header">
+                <a href="#"><img class="profile-image" [src]="'assets/empty_profile.png'" /></a>
+                <div class="username">
+                    <h5>{{post.author?.name}}</h5>
+                    <a href="#">
+                        <h5>{{post.author?.username}}</h5>
+                    </a>
+                    <h6>{{getTimeAgo(post.timestamp ?? '')}} .</h6>
+                </div>
+            </div>
+            <div class="posts-body">
+                <div [innerHTML]="post.message">{{ post.message }}</div>
+            </div>
+            <hr>
+            <div class="posts-actions">
+                <button mat-flat-button class="posts-button" (click)="toggleLike(post, i)"
+                    matTooltip="{{post.likes?.count || 0}}" matTooltipPosition="above"><i
+                        class="fa fa-thumbs-up posts-icon"
+                        [ngStyle]="{'color':isLikedPost(post) ? '#0000CD' : null }"></i>
+                    <span [ngStyle]="{'color':isLikedPost(post) ? '#0000CD' : null }">Like</span></button>
+                <button mat-flat-button class="posts-button"><mat-icon class="posts-icon"> insert_comment</mat-icon>
+                    <!-- <button mat-flat-button class="posts-button" (click)="toggleComment(post._id)"><mat-icon class="posts-icon"> insert_comment</mat-icon> -->
+                    Comment</button>
+                <button *ngIf="post.author?.username === username" mat-flat-button class="posts-button"><i
+                        class="fa fa-edit posts-icon"></i> Edit</button>
+                <button *ngIf="post.author?.username === username" mat-flat-button class="posts-button"
+                    (click)="openConfirmationDialog(post._id ?? '')"><i class="fa fa-trash posts-icon"></i>
+                    Delete</button>
+
+            </div>
+            <!-- <div *ngIf="comments.get(post._id) === true" class="show-posts-comments">
+                <input type="text" placeholder="Add a comment..." style="width: 100%; border-radius: 10px; border: 1px solid grey; height: 30px; margin-top: 5px; padding-left: 10px;">
+                <div *ngFor="let comment of post.comments">
+                    Author: comment.author
+                    <br>
+                    Message: comment.message
+                    <div class="show-posts-comments-replies">
+                        <input type="text" placeholder="Add a reply...">
+                        <div *ngFor="let reply of comment.replies">
+                            Author: reply.author
+                            <br>
+                            Message: reply.message
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+        </div>
+        <div class="load-more-button-container">
+            <button class="load-more-button" *ngIf="loadMore" [disabled]="isLoading" mat-raised-button
+                (click)="loadMorePosts(false)" color="primary"><i class="fa"
+                    [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> {{button}}</button>
+        </div>
+    </div>
+</div>

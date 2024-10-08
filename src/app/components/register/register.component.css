@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.form-container {
+    width: 35%;
+    text-align: center;
+
+    .heading {
+        color: rgb(145, 240, 2);
+        font-weight: bolder;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    .register-button {
+        width: 100%;
+        background-color: rgb(145, 240, 2);
+        color: white;
+        margin-bottom: 10px;
+    }
+
+    .existing-account-button {
+        width: 80%;
+        border: 1px solid gray;
+    }
+}
+
+ngx-otp-input,
+mat-form-field {
+    width: 100%;
+}
+
+/* horizontal lines for or */
+.hr-lines {
+    position: relative;
+    color: grey;
+    margin-top: 7px;
+}
+
+.hr-lines:before {
+    content: " ";
+    height: 1px;
+    width: 45%;
+    background: gray;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.hr-lines:after {
+    content: " ";
+    height: 1px;
+    width: 45%;
+    background: gray;
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+}
+
+ngx-otp-input {
+    .ngx-otp-input-container {
+        justify-content: center;
+    }
+}

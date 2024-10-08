@@ -1,0 +1,64 @@
+.profile-image {
+    margin-top: 2px;
+    margin-right: 8px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.header {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+h6 {
+    color: grey;
+}
+
+a {
+    text-decoration: none;
+}
+
+.load-more-button-container {
+    text-align: center;
+    margin-top: 2px;
+
+    .load-more-button {
+        border-radius: 25px;
+    }
+}
+
+.show-posts {
+    border: 1px solid rgb(231, 226, 226);
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.posts-body {
+    overflow-wrap: break-word;
+}
+
+.posts-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+button.posts-button {
+    color: grey;
+
+    .posts-icon {
+        color: white;
+        text-shadow: -1px -1px 0 grey, 1px -1px 0 grey, -1px 1px 0 grey, 1px 1px 0 grey;
+    }
+}

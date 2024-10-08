@@ -1,0 +1,21 @@
+<div class="new-users-container">
+    <div class="loader" *ngIf="loader">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="new-users" *ngIf="!loader">
+        <div class="header">
+            <h2>New Users</h2>
+        </div>
+        <div class="users" *ngFor="let user of newUsers">
+            <a>
+                <img class="profile-image" style="border: 1px solid black;"
+                    [src]="user?.newField ? user?.newField : 'assets/empty_profile.png'" />
+            </a>
+            <div class="username">
+                <h4>{{user.name}}</h4>
+                <h5>{{user.username}}</h5>
+            </div>
+            <button href="#" mat-raised-button color="primary">View</button>
+        </div>
+    </div>
+</div>
