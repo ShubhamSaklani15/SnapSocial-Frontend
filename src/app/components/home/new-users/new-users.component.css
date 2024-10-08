@@ -1,0 +1,48 @@
+.new-users-container {
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgb(231, 226, 226);
+    background-color: white;
+    border-radius: 15px;
+    min-height: 400px;
+
+    .new-users {
+        .header {
+            margin-top: 10px;
+            text-align: center;
+
+            h2 {
+                font-family: Roboto, "Helvetica Neue", sans-serif;
+                color: #3f51b5;
+                font-weight: bold;
+            }
+        }
+
+        .users {
+            margin-top: 10px;
+            display: flex;
+            padding-bottom: 10px;
+
+            h4,
+            h5 {
+                margin: 0px;
+                padding: 0px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            h5 {
+                font-weight: bold;
+            }
+
+            button {
+                margin-right: 0px;
+                margin-left: auto;
+            }
+        }
+    }
+
+    .loader {
+        padding-top: 100px;
+    }
+}

@@ -37,6 +37,7 @@ export class NavigationComponent {
   getProfileImage() {
     this.profileService.getProfileImage(localStorage.getItem('username')).subscribe({
       next: (response) => {
+        console.log("response in getProfile: ", response)
         const reader = new FileReader();
         reader.onload = () => {
           this.imageUrl = reader.result as string;
@@ -49,9 +50,7 @@ export class NavigationComponent {
         this.imageUrl = "";
         this.dataService.updateProfileImage(this.imageUrl);
         if (error?.statusText === 'Unauthorized') {
-          this.utility.resetLocalStorage();
-          this.router.navigate(['/login']);
-          this.loadSnackBar("Session Expired. Please login again.");
+         this.loadSnackBar("Internal Server Error");
         } else {
           this.loadSnackBar("Internal Server Error");
         }

@@ -1,12 +1,13 @@
 <app-navigation></app-navigation>
 
 <div class="home-container">
-    <!-- <app-new-post class="left"></app-new-post> -->
-    <div></div>
-    <app-new-post class="new-post"></app-new-post>
-    <!-- <app-new-post class="right"></app-new-post> -->
-    <div></div>
-    <div class="fourth">
+    <div class="left"><app-new-post></app-new-post></div>
+   
+    <div class="add-new-post"><app-new-post></app-new-post></div>
+    <div class="new-users">
+        <app-new-users></app-new-users>
+    </div>
+    <div class="all-posts">
         <div class="show-posts" *ngFor="let post of allPosts; index as i">
             <div class="header">
                 <a href="#"><img class="profile-image" [src]="'assets/empty_profile.png'" /></a>

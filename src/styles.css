@@ -11,3 +11,14 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: rgb(245, 253, 245);
 }
+
+.profile-image {
+    margin-top: 5px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.profile-image:hover {
+    cursor: pointer;
+}
