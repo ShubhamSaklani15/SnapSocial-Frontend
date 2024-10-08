@@ -1,7 +1,7 @@
 export interface Post {
     _id?: string;
     message?: string;
-    author?: Author;
+    author: Author;
     timestamp?: string;
     likes?: Like;
     comments?: Comment[];
@@ -9,7 +9,7 @@ export interface Post {
 
 export interface Author {
     name?: string;
-    username?: string;
+    username: string;
 }
 
 export interface Like {

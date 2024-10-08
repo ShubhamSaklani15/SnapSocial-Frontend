@@ -46,7 +46,7 @@ export class NewUsersComponent {
         console.log("response in getProfile: ", response)
         const reader = new FileReader();
         reader.onload = () => {
-          user["newField"] = reader.result as string;
+          user["profile"] = reader.result as string;
         };
         reader.readAsDataURL(response);
       },
