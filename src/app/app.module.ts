@@ -11,6 +11,7 @@ import { ProfileDetailsComponent } from './components/profile/profile-details/pr
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserDetailsComponent } from './components/profile/user-details/user-details.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { NewUsersComponent } from './components/home/new-users/new-users.component';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AuthenticationInterceptor} from './interceptor/authentication.interceptor';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { AuthenticationInterceptor} from './interceptor/authentication.intercept
     ProfileDetailsComponent,
     UserDetailsComponent,
     NewPostComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    NewUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { AuthenticationInterceptor} from './interceptor/authentication.intercept
     MatToolbarModule,
     MatTabsModule,
     MatDialogModule,
-    AngularEditorModule
+    AngularEditorModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
