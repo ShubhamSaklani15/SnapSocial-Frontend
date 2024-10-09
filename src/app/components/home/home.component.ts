@@ -27,7 +27,9 @@ export class HomeComponent {
   utility!: Utility;
   profileImageMap = new Map<string, string>();
   userNames: string[] = [];
-  // comments = new Map<string | undefined, boolean>();
+  // Create an array to track the visibility state for each post
+  showFullMessage: boolean[] = [];
+
   constructor(
     private postService: PostService,
     private profileService: ProfileService,
@@ -77,7 +79,7 @@ export class HomeComponent {
         complete: () => {
           this.isLoading = false;
           this.userNames.forEach((username: string) => {
-            if(!(username in this.profileImageMap)) {
+            if (!(username in this.profileImageMap)) {
               this.getProfileImage(username);
             }
           });
@@ -85,6 +87,28 @@ export class HomeComponent {
         }
       });
     }, 500)
+  }
+
+  //Toggle read-more option to show full post message
+  toggleReadMore(index: number) {
+    this.showFullMessage[index] = !this.showFullMessage[index];
+  }
+
+  getMessageLength(message: string): number {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = message;
+    return tempDiv.innerText.trim().length;
+  }
+
+  //Get truncated message to show (More option is provided to see complete post/message)
+  getTruncatedMessage(message: string): string {
+    const messageLength = this.getMessageLength(message);
+    if (messageLength > 300) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = message;
+      return tempDiv.innerText.slice(0, 300) + '...';
+    }
+    return message; // Return the full message if it's shorter than 300 characters
   }
 
   loadSnackBar(message: string): void {

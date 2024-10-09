@@ -1,19 +1,29 @@
+.left {
+    grid-area: left;
+}
 
-.left { grid-area: left; }
-.add-new-post { grid-area: add-new-post; }
-.new-users { grid-area: new-users; }
-.all-posts { grid-area: all-posts; }
+.add-new-post {
+    grid-area: add-new-post;
+}
+
+.new-users {
+    grid-area: new-users;
+}
+
+.all-posts {
+    grid-area: all-posts;
+}
 
 .home-container {
     display: grid;
     grid-template-columns: 1fr 550px 1fr;
     grid-template-areas:
-    'left add-new-post new-users'
-    'left all-posts new-users';
+        'left add-new-post new-users'
+        'left all-posts new-users';
     margin: 1%;
     grid-column-gap: 1%;
     grid-row-gap: 10px;
-/* 
+    /* 
     .fourth {
         grid-column: 2 / 3;
     } */
@@ -61,6 +71,11 @@ a {
 
 .posts-body {
     overflow-wrap: break-word;
+
+    .read-more-button {
+        color: gray;
+        cursor: pointer;
+    }
 }
 
 .load-more-button-container {

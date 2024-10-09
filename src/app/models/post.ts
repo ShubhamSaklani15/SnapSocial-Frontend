@@ -1,6 +1,6 @@
 export interface Post {
     _id?: string;
-    message?: string;
+    message: string;
     author: Author;
     timestamp?: string;
     likes?: Like;
