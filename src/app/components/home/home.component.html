@@ -21,7 +21,11 @@
                 </div>
             </div>
             <div class="posts-body">
-                <div [innerHTML]="post.message">{{ post.message }}</div>
+                <span [innerHTML]="showFullMessage[i] ? post.message : (getTruncatedMessage(post.message))">
+                </span>
+                <span class='read-more-button' *ngIf="getMessageLength(post.message) > 300" (click)="toggleReadMore(i)">
+                    {{ showFullMessage[i] ? '' : 'more' }}
+                </span>
             </div>
             <hr>
             <div class="posts-actions">
