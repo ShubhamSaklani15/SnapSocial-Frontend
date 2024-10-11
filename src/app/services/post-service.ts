@@ -37,4 +37,9 @@ export class PostService {
     deletePost(id: string): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/delete-post/${id}`);
     }
+
+    //rewrite post
+    rewritePost(postMessage: any): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/rewrite-post/`, postMessage);
+    }
 }

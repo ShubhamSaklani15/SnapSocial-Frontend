@@ -10,8 +10,8 @@
     <div class="all-posts">
         <div class="show-posts" *ngFor="let post of allPosts; index as i">
             <div class="header">
-                <a href="#"><img class="profile-image" [src]="this.profileImageMap.get(post.author.username)"
-                        alt="'assets/empty_profile.png'" /></a>
+                <a href="#"><img class="profile-image"
+                        [src]="this.profileImageMap.get(post.author.username) ?? 'assets/empty_profile.png'" /></a>
                 <div class="username">
                     <h5>{{post.author.name}}</h5>
                     <a href="#">
