@@ -3,22 +3,26 @@
             [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
     <button class="add-post-button" (click)="openNewPostDialog()">Start a post</button>
     <ng-template class="new-post-template" #newPostDialog>
+        <div class="loader" *ngIf="isLoading">
+            <mat-spinner></mat-spinner>
+        </div>
         <div class="new-post-container">
             <div class="header">
                 <a (click)="gotoProfile()"><img class="profile-image"
                         [src]="imageUrl ? imageUrl : 'assets/empty_profile.png'" /></a>
                 <div class="username">
                     <h4>{{name}}</h4>
-                    <a href="#">
-                        <h5>{{username}}</h5>
-                    </a>
+                    <h5>{{username}}</h5>
                 </div>
                 <mat-icon class="close-icon" (click)="closeNewPostDialog()" matTooltip="close">close</mat-icon>
             </div>
             <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlElement"
                 [config]="config"></angular-editor>
-            <div class="post-button-container">
-                <button class="post-button" mat-raised-button color="primary" (click)="openConfirmationDialog()"
+            <div class="button-container">
+                <button class="button rewrite-button" mat-raised-button color="primary" (click)="rewritePost()"
+                    [disabled]="!htmlElement || isLoading"><i class="fa"
+                    [ngClass]="{'fa-spin fa-spinner': isLoading}"></i> Rewrite with AI</button>
+                <button class="button post-button" mat-raised-button color="primary" (click)="openConfirmationDialog()"
                     [disabled]="!htmlElement">Post</button>
             </div>
         </div>

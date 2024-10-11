@@ -20,6 +20,8 @@ export class NewPostComponent {
   name!: string;
   username!: string;
   utility!: Utility;
+  isLoading: boolean = false;
+  isEditorDisabled: boolean = true;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -102,6 +104,41 @@ export class NewPostComponent {
           timestamp: new Date().toISOString(),
         }
         this.addNewPost(post);
+      }
+    });
+  }
+
+  //Function to call rewrite-post api to rewrite the post using gemini ai
+  rewritePost() {
+    this.config.editable = false;
+    this.isLoading = true;
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = this.htmlElement;
+    const postMessage = {
+      prompt: tempDiv.innerText.trim()
+    }
+    this.postService.rewritePost(postMessage).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        const updatedPostMessage = response.text.replace("*", "");
+        if(updatedPostMessage.includes("Error 429: Rate Limit Reached")) {
+          this.loadSnackBar("Please try after some time.");
+        } else {
+          this.htmlElement = updatedPostMessage;
+        }
+        this.config.editable = true;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        if (error?.statusText === 'Unauthorized') {
+          this.utility.resetLocalStorage();
+          this.router.navigate(['/login']);
+          this.loadSnackBar("Session Expired. Please login again.");
+        } else {
+          this.loadSnackBar("Internal Server Error");
+        }
+        this.config.editable = true;
+        this.isLoading = false;
       }
     });
   }

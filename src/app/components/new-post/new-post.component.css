@@ -21,6 +21,12 @@
     }
 }
 
+.loader {
+    position: fixed;
+    top: 40%;
+    left: 45%;
+}
+
 .profile-image {
     margin-top: 5px;
     border-radius: 50%;
@@ -46,12 +52,13 @@
     cursor: pointer;
 }
 
-.post-button-container {
+.button-container {
     display: flex;
     justify-content: flex-end;
     padding: 10px;
 
-    .post-button {
+    .button {
+        margin-left: 10px;
         border-radius: 15px;
     }
 }
@@ -72,4 +79,5 @@ h4,
 h5 {
     margin: 0;
     padding: 0;
+    font-weight: bold;
 }
